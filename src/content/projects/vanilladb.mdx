@@ -1,0 +1,28 @@
+---
+name: VanillaDB
+description: A NoSQL database written in Rust from scratch.
+timeline: Feb 2025
+stack:
+  - Rust
+  - Direct I/O
+  - io_uring
+  - Serialization
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  I was curious about how databases work. In order to figure it out, I built my own. I was exploring how a database engine actually persists and retrieves data: how pages, writes, and data serialization works. The implementation uses io_uring and Direct I/O to bypass the kernel's page cache, which meant dealing with the same low-level constraints real database engines deal with. Unfortunately, I was unable to properly implement B+ trees and moved on from the project.
+</Section>
+
+<Section title="Technical highlights">
+  - I built a custom data serialization and deserialization library.
+  - I used io_uring and direct I/O to achieve higher performance in the database engine.
+  - I manually implemented pages and cursor to write data to disk. The idea was to store the data in a B+ tree-like structure.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/vanilladb" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

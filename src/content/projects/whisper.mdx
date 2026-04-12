@@ -1,0 +1,33 @@
+---
+name: Whisper
+description: A program that transpiles a custom language (inspired by Rust) into JavaScript.
+timeline: Jul 2025
+stack:
+  - Rust
+  - AST
+  - Lexer
+  - Type checker
+  - EBNF
+  - Parser
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  I was exploring the world of compilers, and I have implemented this one as a part of my journey. It takes a file containing a Rust-inspired language and transpiles it into JavaScript.
+</Section>
+
+<Section title="Technical highlights">
+  - I built a handwritten recursive descent parser.
+  - I used string interning to optimize memory consumption.
+  - I implemented a simple type system and a type checker.
+  - A Rust-like module system was also implemented.
+  - Unlike my previous attempt, this compiler is simpler since it only produces JavaScript and not binary.
+  - Pipeline: Lexer > Parser > Checker (semantic analysis) > Resolver (type resolving) > JavaScript Generator
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/Whisper" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

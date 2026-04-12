@@ -32,69 +32,62 @@ import { customTransition } from '../utils/transitions';
     will-change: transform, opacity, filter;
   }
 
-  /* =========================================
-     FORWARDS (Clicking a link)
-     Old page falls back, New page slides up
-     ========================================= */
-  @keyframes slide-out-back {
-    0% {
-      opacity: 1;
-      transform: scale(1);
-      filter: blur(0);
+  /* FORWARDS (Next Page) */
+    @keyframes slide-out-up {
+      0% { opacity: 1; transform: translateY(0); filter: blur(0); }
+      100% { opacity: 0; transform: translateY(-40px); filter: blur(12px); }
     }
-    100% {
-      opacity: 0;
-      transform: scale(0.94);
-      filter: blur(4px);
+    @keyframes slide-in-up {
+      0% {
+        opacity: 0;
+        transform: translateY(60px); /* Increased travel distance */
+        filter: blur(15px); /* Heavier initial blur */
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
     }
-  }
 
-  @keyframes slide-in-up {
-    0% {
-      opacity: 0;
-      transform: translateY(24px) scale(0.98);
-      filter: blur(4px);
+    /* BACKWARDS (Back Button) */
+    @keyframes slide-out-down {
+      0% { opacity: 1; transform: translateY(0); filter: blur(0); }
+      100% { opacity: 0; transform: translateY(60px); filter: blur(15px); }
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
+    @keyframes slide-in-down {
+      0% {
+        opacity: 0;
+        transform: translateY(-40px);
+        filter: blur(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
     }
-  }
 
-  /* =========================================
-     BACKWARDS (Hitting the browser back button)
-     Old page drops down, New page scales up from back
-     ========================================= */
-  @keyframes slide-out-down {
-    0% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
+    /* REFINED MORPHING ELEMENTS (Titles/Descriptions) */
+    /* We want these to morph slightly faster than the page slides
+       so they "land" right as the page finishes moving */
+    ::view-transition-old(project-title-*),
+    ::view-transition-new(project-title-*),
+    ::view-transition-old(project-desc-*),
+    ::view-transition-new(project-desc-*) {
+      animation-duration: 500ms; /* Slightly faster than the root slide */
+      animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
     }
-    100% {
-      opacity: 0;
-      transform: translateY(24px) scale(0.98);
-      filter: blur(4px);
-    }
-  }
-
-  @keyframes slide-in-front {
-    0% {
-      opacity: 0;
-      transform: scale(0.94);
-      filter: blur(4px);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-      filter: blur(0);
-    }
-  }
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    pointer-events: none;
-    will-change: transform, opacity, filter;
-  }
 </style>
+
+<script>
+  document.addEventListener('astro:before-preparation', (event) => {
+    // Check if the element that triggered the navigation has our data attribute
+    const sourceElement = event.sourceElement as HTMLElement;
+
+    if (sourceElement && sourceElement.hasAttribute('data-breadcrumb')) {
+      // Force the animation to use the 'backwards' key from your customTransition
+      event.direction = 'back';
+    }
+  });
+</script>

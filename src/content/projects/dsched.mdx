@@ -1,0 +1,30 @@
+---
+name: dsched
+description: A distributed job scheduling system in Rust with PostgreSQL.
+timeline: Apr 2026
+stack:
+  - Rust
+  - Axum
+  - SQLx
+  - Kubernetes
+  - PostgreSQL
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  As production systems get more complex, reliable job scheduling is becoming more and more important. I built this project to improve my understanding of distributed systems and durable job scheduling.
+</Section>
+
+<Section title="Technical highlights">
+  - I selected PostgreSQL to be the datasource for the implementation (although a different database can be brought in).
+  - Instead of advisory locks, I utilized a simple state machine that switches job state and prevents other worker nodes from accessing the job.
+  - The system is built in Rust for maximum performance.
+  - In order to define jobs, users create Rust binaries with the `worker` library and deploy them manually.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/dsched" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

@@ -3,9 +3,9 @@ const pathname = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 inset-x-0">
-  <nav class="mx-auto max-w-5xl p-10 flex items-center gap-10">
+  <nav class="mx-auto max-w-5xl p-10 flex items-center gap-10 text-sm">
     <a href="/">@whyneet</a>
     <span class="flex-1" />
-    { [{ path: "/skills", name: "skills" }, { path: "/projects", name: "projects" }].map(({ path, name }) => <a href={path} class={pathname === path ? "opacity-100" : "opacity-50"}>{ name }</a>) }
+    { [{ path: "/skills", name: "skills" }, { path: "/projects", name: "projects" }].map(({ path, name }) => <a href={path} class={pathname.startsWith(path) ? "opacity-100" : "opacity-50"}>{ name }</a>) }
   </nav>
 </header>

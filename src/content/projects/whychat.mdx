@@ -1,0 +1,30 @@
+---
+name: WhyChat
+description: An AI chat application built for the T3 Chat Cloneathon.
+timeline: Jun 2025
+stack:
+  - Rust
+  - Axum
+  - OpenRouter
+  - MongoDB
+  - React
+  - Zustand
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  In June 2025, T3 Chat Cloneathon (a hackathon) was launched. I have designed and implemented a system that features multi-model chats, resumable streams, chat sharing and other features.
+</Section>
+
+<Section title="Technical highlights">
+  - I manually implemented a streaming library in Rust that supports OpenAI-compatible APIs.
+  - The frontend was implemented in React and Zustand was used for state management.
+  - The frontend state management quickly got very messy and was hard to debug.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/t3-chat-clone" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

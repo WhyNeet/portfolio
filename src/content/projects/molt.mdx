@@ -1,0 +1,32 @@
+---
+name: Molt
+description: A compiler that converts a Rust-like functional language into binary.
+timeline: Feb 2025
+stack:
+  - Rust
+  - LLVM
+  - AST
+  - Lexer
+  - Type checker
+  - EBNF
+  - Parser
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  Most developers use compilers every day without thinking about what happens between source code and executable. I was fascinated by how there exists a program that converts code into machine language. The goal was to design a language, implement the pipeline from scratch, and figure out how something as abstract as a type-checked syntax tree becomes something a machine can actually run. The target was LLVM IR, which meant confronting real compilation problems — SSA form, memory layout, code generation — rather than the simplified version you get when transpiling to another high-level language.
+</Section>
+
+<Section title="Technical highlights">
+  - I built a handwritten recursive descent parser.
+  - I implemented a simple type system and a type checker.
+  - The pipeline: Lexer > Parser > Checker (semantic analysis) > Lowering (to simplify conversion into LLVM IR) > LLVM IR Generation.
+  - The project stalled when I was unable to convert some more complex language features into LLVM IR.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/Molt" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

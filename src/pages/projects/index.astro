@@ -4,11 +4,6 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-
-// const projects: { name: string; description: string; timeline: string; }[] = [
-//   { name: "GlobuFlow", description: "Collaborated with the team to implement a custom-built workflow automation engine that asynchronously executes user-defined workflows.", timeline: "Oct 2025 — Apr 2026" },
-//   { name: "dsched", description: "Implemented a distributed job scheduling system in Rust with PostgreSQL as a core.", timeline: "Apr 2026" }
-// ];
 ---
 
 <Layout>
@@ -18,15 +13,15 @@ const projects = await getCollection("projects");
   </div>
 
   <ul>
-    { projects.map(({ data: { name, description, timeline } }) => <li>
-      <a href={`/projects/${name.toLowerCase()}`} class="group block -mx-3 rounded-lg p-3 hover:bg-white/5 relative">
+    { projects.map(({ data: { name, description, timeline }, id }) => <li>
+      <a href={`/projects/${id}`} class="group block -mx-3 rounded-lg p-3 hover:bg-white/5 relative">
         <h3 class="text-sm mb-1 flex gap-1 items-center">
-          <span class="w-fit" data-vt-name={`project-title-${name.toLowerCase()}`}>
+          <span class="w-fit" data-vt-name={`project-title-${id}`}>
             { name }
           </span>
           <Icon name="material-symbols:arrow-outward" class:list="opacity-0 group-hover:opacity-50" />
         </h3>
-        <p class="text-xs text-white/50" data-vt-name={`project-desc-${name.toLowerCase()}`}>{ description }</p>
+        <p class="text-xs text-white/50 w-fit block origin-left"  data-vt-name={`project-desc-${id}`}>{ description }</p>
         <div class="text-white/50 text-xs absolute top-3 right-3">
           { timeline }
         </div>

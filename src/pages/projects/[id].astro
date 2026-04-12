@@ -19,14 +19,14 @@ const mdxComponents = { Section };
 
 <Layout>
   <div>
-    <a class="text-xs opacity-50 hover:opacity-100" href="/projects">projects/</a>
+    <a class="text-xs opacity-50 hover:opacity-100" href="/projects" data-breadcrumb>projects/</a>
     <h1
       class="font-bold text-lg w-fit origin-left mb-2"
-      transition:name={`project-title-${project.data.name.toLowerCase()}`}
+      transition:name={`project-title-${project.id}`}
     >
       { project.data.name }
     </h1>
-    <p class="text-white/50 text-sm w-fit block origin-left mb-4" transition:name={`project-desc-${project.data.name.toLowerCase()}`}>{ project.data.description }</p>
+    <p class="text-white/50 text-sm w-fit block origin-left mb-4" transition:name={`project-desc-${project.id}`}>{ project.data.description }</p>
     <ul class="flex gap-2 flex-wrap">
       { project.data.stack.map((e) => <li class="bg-neutral-800 rounded-md px-3 py-2 text-sm">
         { e }
@@ -52,5 +52,9 @@ const mdxComponents = { Section };
 
   .prose-project li {
     @apply list-disc;
+  }
+
+  .prose-project code {
+    @apply rounded bg-white/5 text-white/90 px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
   }
 </style>
