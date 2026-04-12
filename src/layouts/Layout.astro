@@ -1,3 +1,11 @@
+---
+import '@fontsource-variable/geist-mono/wght.css';
+import "../styles/global.css";
+import Header from '../components/Header.astro';
+import { ClientRouter } from "astro:transitions";
+import { customTransition } from '../utils/transitions';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -6,18 +14,87 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>whyneet</title>
+		<ClientRouter />
 	</head>
-	<body>
-		<slot />
+	<body class="bg-neutral-900 text-white" transition:animate="none">
+		<Header />
+		<main class="mx-auto max-w-5xl px-10 flex flex-col gap-10" transition:animate={customTransition}>
+		  <slot />
+		</main>
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  /* Base optimization for smooth rendering */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    will-change: transform, opacity, filter;
+  }
+
+  /* =========================================
+     FORWARDS (Clicking a link)
+     Old page falls back, New page slides up
+     ========================================= */
+  @keyframes slide-out-back {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.94);
+      filter: blur(4px);
+    }
+  }
+
+  @keyframes slide-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  /* =========================================
+     BACKWARDS (Hitting the browser back button)
+     Old page drops down, New page scales up from back
+     ========================================= */
+  @keyframes slide-out-down {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      filter: blur(4px);
+    }
+  }
+
+  @keyframes slide-in-front {
+    0% {
+      opacity: 0;
+      transform: scale(0.94);
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    pointer-events: none;
+    will-change: transform, opacity, filter;
+  }
 </style>

@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const languages = ["TypeScript", "Java", "Rust", "SQL"];
+const backend = ["Spring Boot", "PostgreSQL", "Axum", "Actix", "Redis"];
+const frontend = ["React", "Astro", "shadcn/ui", "TailwindCSS", "Framer Motion"];
+const tools = ["Git", "Flyway", "Docker", "Kubernetes", "AWS", "Biome", "Gradle", "Vite"];
+---
+
+<Layout>
+  <div>
+    <h1 class="font-bold text-lg">Skills</h1>
+    <p class="text-white/50 text-sm">Technologies and tools I work with regularly.</p>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">Languages</h2>
+    <ul class="flex gap-2 flex-wrap">
+      { languages.map((e) => <li class="bg-neutral-800 rounded-md px-3 py-2 text-sm">
+        { e }
+      </li>) }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">Backend</h2>
+    <ul class="flex gap-2 flex-wrap">
+      { backend.map((e) => <li class="bg-neutral-800 rounded-md px-3 py-2 text-sm">
+        { e }
+      </li>) }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">Frontend</h2>
+    <ul class="flex gap-2 flex-wrap">
+      { frontend.map((e) => <li class="bg-neutral-800 rounded-md px-3 py-2 text-sm">
+        { e }
+      </li>) }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">Tools</h2>
+    <ul class="flex gap-2 flex-wrap">
+      { tools.map((e) => <li class="bg-neutral-800 rounded-md px-3 py-2 text-sm">
+        { e }
+      </li>) }
+    </ul>
+  </div>
+</Layout>

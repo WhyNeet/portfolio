@@ -1,0 +1,81 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+
+// const projects: { name: string; description: string; timeline: string; }[] = [
+//   { name: "GlobuFlow", description: "Collaborated with the team to implement a custom-built workflow automation engine that asynchronously executes user-defined workflows.", timeline: "Oct 2025 — Apr 2026" },
+//   { name: "dsched", description: "Implemented a distributed job scheduling system in Rust with PostgreSQL as a core.", timeline: "Apr 2026" }
+// ];
+---
+
+<Layout>
+  <div>
+    <h1 class="font-bold text-lg">Projects</h1>
+    <p class="text-white/50 text-sm">A selection of projects I've worked on. Some are open source, others are from professional environment.</p>
+  </div>
+
+  <ul>
+    { projects.map(({ data: { name, description, timeline } }) => <li>
+      <a href={`/projects/${name.toLowerCase()}`} class="group block -mx-3 rounded-lg p-3 hover:bg-white/5 relative">
+        <h3 class="text-sm mb-1 flex gap-1 items-center">
+          <span class="w-fit" data-vt-name={`project-title-${name.toLowerCase()}`}>
+            { name }
+          </span>
+          <Icon name="material-symbols:arrow-outward" class:list="opacity-0 group-hover:opacity-50" />
+        </h3>
+        <p class="text-xs text-white/50" data-vt-name={`project-desc-${name.toLowerCase()}`}>{ description }</p>
+        <div class="text-white/50 text-xs absolute top-3 right-3">
+          { timeline }
+        </div>
+      </a>
+    </li>) }
+  </ul>
+</Layout>
+
+
+<script>
+  /**
+   * 1. FORWARDS: When clicking a project link
+   */
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest('a');
+    if (!link) return;
+
+    // Clean up any existing names globally
+    document.querySelectorAll('[data-vt-name]').forEach(el => {
+      (el as HTMLElement).style.viewTransitionName = 'none';
+    });
+
+    // Find ALL elements inside the clicked link that have a data-vt-name
+    // This will find both the title span and the description p
+    const morphingElements = link.querySelectorAll('[data-vt-name]');
+
+    morphingElements.forEach(el => {
+      const HTMLElement = el as HTMLElement;
+      HTMLElement.style.viewTransitionName = HTMLElement.dataset.vtName!;
+    });
+  }, { capture: true });
+
+  /**
+   * 2. BACKWARDS: When hitting back, morph everything back to the list
+   */
+  document.addEventListener('astro:before-swap', (e) => {
+    const fromPath = e.from.pathname;
+    const pathSegments = fromPath.split('/').filter(Boolean);
+    const slug = pathSegments[pathSegments.length - 1];
+
+    if (slug) {
+      // Find every element in the NEW document that belongs to this project
+      // This looks for anything where data-vt-name contains the project slug
+      const targetElements = e.newDocument.querySelectorAll(`[data-vt-name*="${slug}"]`);
+
+      targetElements.forEach(el => {
+        const HTMLElement = el as HTMLElement;
+        HTMLElement.style.viewTransitionName = HTMLElement.dataset.vtName!;
+      });
+    }
+  });
+</script>

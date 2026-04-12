@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/Section.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const mdxComponents = { Section };
+---
+
+<Layout>
+  <div>
+    <a class="text-xs opacity-50 hover:opacity-100" href="/projects">projects/</a>
+    <h1
+      class="font-bold text-lg w-fit origin-left mb-2"
+      transition:name={`project-title-${project.data.name.toLowerCase()}`}
+    >
+      { project.data.name }
+    </h1>
+    <p class="text-white/50 text-sm w-fit block origin-left mb-4" transition:name={`project-desc-${project.data.name.toLowerCase()}`}>{ project.data.description }</p>
+    <ul class="flex gap-2 flex-wrap">
+      { project.data.stack.map((e) => <li class="bg-neutral-800 rounded-md px-3 py-2 text-sm">
+        { e }
+      </li>) }
+    </ul>
+  </div>
+
+  <article class="prose-project">
+    <Content components={mdxComponents} />
+  </article>
+</Layout>
+
+<style is:global>
+  @reference "../../styles/global.css";
+
+  .prose-project {
+    @apply flex flex-col gap-10;
+  }
+
+  .prose-project ul {
+    @apply pl-6;
+  }
+
+  .prose-project li {
+    @apply list-disc;
+  }
+</style>

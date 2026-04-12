@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@plugin "tailwindcss-motion";
+
+@theme {
+  --font-mono: "Geist Mono Variable", monospace;
+  --font-sans: var(--font-mono);
+}

@@ -1,0 +1,30 @@
+---
+name: GlobuFlow
+description: Collaborated with the team to implement a custom-built workflow automation engine that asynchronously executes user-defined workflows.
+timeline: Oct 2025 — Apr 2026
+stack:
+  - Spring Boot
+  - PostgreSQL
+  - Redis
+  - React
+  - React Query
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  Logistical environments differ based on the customer. I proposed and implemented a workflow-based system that brings together all tenents of the platform (customers, manufacturers, and warehouse managers). Customers use a visual node-based editor to represent their logistical pipelines, and the platform automatically handles triggering and execution.
+</Section>
+
+<Section title="Technical highlights">
+  - Spring Boot along with its ecosystem was used on the backend for its stability and ease of use for the architecture developed.
+  - The core system — a custom-built async execution engine with event-driven state reconstruction.
+  - React Query was used for state management on the frontend. I avoided heavy solutions like Redux due to their weight and slow setup.
+  - I chose ReactFlow as the base for the node-based editor implementation.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/globuflow" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

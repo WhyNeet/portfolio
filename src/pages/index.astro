@@ -1,11 +1,56 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const professionalExperience: { title: string; company: string; timeline: string; }[] = [
+  {
+    title: "Chief Technology Officer",
+    company: "GlobuFlow",
+    timeline: "Nov 2025 — Apr 2026"
+  }
+];
 ---
 
 <Layout>
-	<Welcome />
+  <div>
+    <h1 class="font-bold text-lg">Igor Vladimirov</h1>
+    <p class="text-white/50 text-sm">Software Engineer</p>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">About me</h2>
+    <p class="text-sm">
+      I'm a backend-focused developer who thrives on understanding how things work under the hood. I love diving into complex systems — whether it's database internals, compiler design, or distributed architectures — and building robust, scalable solutions.
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">Professional experience</h2>
+    <ul>
+      { professionalExperience.map(({ title, company, timeline }) => <li class="flex">
+        <div>
+          <h3 class="text-sm mb-1">{ title }</h3>
+          <p class="text-xs text-white/50">{ company }</p>
+        </div>
+        <span class="flex-1" />
+        <div class="text-white/50 text-xs">{ timeline }</div>
+      </li>) }
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-sm text-white/50 mb-4">Links</h2>
+    <div class="flex gap-10">
+      {
+      [
+        { name: "GitHub", url: "https://github.com/WhyNeet" },
+        { name: "LinkedIn", url: "https://www.linkedin.com/in/whyneeet" },
+        { name: "Email", url: "mailto:igorius.vl@gmail.com" }
+      ]
+      .map(({ name, url }) => <a href={url} target="_blank" class="group flex items-center gap-1 text-sm">
+        { name }
+        <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+      </a>)}
+    </div>
+  </div>
 </Layout>
