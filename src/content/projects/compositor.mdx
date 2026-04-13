@@ -1,0 +1,27 @@
+---
+name: Compositor
+description: An application framework written in TypeScript with manual IoC implementation.
+timeline: Aug 2024
+stack:
+  - IoC
+  - Dependency Injection
+  - Tries
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  NestJS and Spring Boot make building structured applications feel easy — until you want to know what's actually happening. I built an application framework in TypeScript with a manual IoC container, an adapter layer that decouples the framework core from any specific transport, and a trie-based router for efficient path matching. The goal was to understand how complex application frameworks work.
+</Section>
+
+<Section title="Technical highlights">
+  - I went with the adapter pattern for decoupling. The application core has no knowledge of HTTP. `server-express` is one of the possible adapters.
+  - Manual IoC container implementation. Uses TypeScript decorators and runtime reflection to register components in the container.
+  - Uses a trie-based router for requests. This helps match paths like `/users/:id/posts` efficiently.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/WhyNeet/compositor" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>

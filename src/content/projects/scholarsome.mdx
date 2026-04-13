@@ -1,0 +1,27 @@
+---
+name: Scholarsome
+description: A web-based flashcard learning system.
+timeline: Feb 2024 — Jul 2024
+stack:
+  - NestJS
+  - Angular
+  - JWT
+---
+import { Icon } from 'astro-icon/components';
+
+<Section title="The problem">
+  Scholarsome was an existing open source flashcard platform I found through a developer community. The codebase had grown to a point where its authentication system had security gaps — and a cybersecurity audit had revealed them. I addressed those: reviewing the audit findings, redesigning the auth system, and ensuring that the codebase scaled well.
+</Section>
+
+<Section title="Technical highlights">
+  - The existing auth system had certain vulnerabilities related to how JWT was used.
+  - The codebase was tangled and hard to scale well. I rebuilt the error handling system and untangled certain parts of the backend.
+  - I supported the project by implementing bug fixes.
+</Section>
+
+<Section title="Links">
+  <a href="https://github.com/hwgilbert16/scholarsome" target="_blank" class="group flex items-center gap-1 text-sm">
+    GitHub
+    <Icon name="material-symbols:arrow-outward" class:list="group-hover:opacity-100 opacity-0" />
+  </a>
+</Section>
