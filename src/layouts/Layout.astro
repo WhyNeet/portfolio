@@ -12,7 +12,7 @@ import { customTransition } from '../utils/transitions';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>whyneet</title>
 		<ClientRouter />
@@ -88,6 +88,50 @@ import { customTransition } from '../utils/transitions';
     if (sourceElement && sourceElement.hasAttribute('data-breadcrumb')) {
       // Force the animation to use the 'backwards' key from your customTransition
       event.direction = 'back';
+    }
+  });
+</script>
+
+<script>
+  /**
+   * 1. FORWARDS: When clicking a project link
+   */
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest('a');
+    if (!link) return;
+
+    // Clean up any existing names globally
+    document.querySelectorAll('[data-vt-name]').forEach(el => {
+      (el as HTMLElement).style.viewTransitionName = 'none';
+    });
+
+    // Find ALL elements inside the clicked link that have a data-vt-name
+    // This will find both the title span and the description p
+    const morphingElements = link.querySelectorAll('[data-vt-name]');
+
+    morphingElements.forEach(el => {
+      const HTMLElement = el as HTMLElement;
+      HTMLElement.style.viewTransitionName = HTMLElement.dataset.vtName!;
+    });
+  }, { capture: true });
+
+  /**
+   * 2. BACKWARDS: When hitting back, morph everything back to the list
+   */
+  document.addEventListener('astro:before-swap', (e) => {
+    const fromPath = e.from.pathname;
+    const pathSegments = fromPath.split('/').filter(Boolean);
+    const slug = pathSegments[pathSegments.length - 1];
+
+    if (slug) {
+      // Find every element in the NEW document that belongs to this project
+      // This looks for anything where data-vt-name contains the project slug
+      const targetElements = e.newDocument.querySelectorAll(`[data-vt-name*="${slug}"]`);
+
+      targetElements.forEach(el => {
+        const HTMLElement = el as HTMLElement;
+        HTMLElement.style.viewTransitionName = HTMLElement.dataset.vtName!;
+      });
     }
   });
 </script>
