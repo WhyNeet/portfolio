@@ -4,6 +4,7 @@ import "../styles/global.css";
 import Header from '../components/Header.astro';
 import { ClientRouter } from "astro:transitions";
 import { customTransition } from '../utils/transitions';
+import Analytics from "@vercel/analytics/astro";
 ---
 
 <!doctype html>
@@ -14,6 +15,7 @@ import { customTransition } from '../utils/transitions';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
+    <Analytics />
 		<title>whyneet</title>
 		<ClientRouter />
 	</head>
